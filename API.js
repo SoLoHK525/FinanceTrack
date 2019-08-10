@@ -14,14 +14,6 @@ API.error = function(err, req, res, next){
     }
 }
 
-API.response = function(payload){
-    return {
-        success: true,
-        data: payload,
-        server_time: new Date()
-    };
-}
-
 API.exception = function (message = null, code, trace) {
     let error = "HTTP Error " + code + ": " + http.STATUS_CODES[code];
     let exception = {
