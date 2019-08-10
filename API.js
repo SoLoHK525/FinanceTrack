@@ -1,10 +1,12 @@
-let http = require('http');
+let http = require('http'); //Include for HTTP Status Code Reference
 let express = require('express');
-let APIException = require('./exception/APIException');
+let APIException = require('./exception/APIException'); //Require the APIException Class
 
 let API = {};
 
-
+/*
+*   Express Error Middleware
+*/
 API.error = function(err, req, res, next){
     if (err instanceof URIError) {
         res.status(400).json(API.exception("Invalid URI: " + req.url, 400, err));
@@ -14,6 +16,13 @@ API.error = function(err, req, res, next){
     }
 }
 
+/*
+*   API Exception Response Formatter
+*   @param string message Message shown as {message} in the response
+*   @param int code HTTP Status Code
+*   @param any trace Stack Error for debug purposes
+*   @return object Exception Response
+*/
 API.exception = function (message = null, code, trace) {
     let error = "HTTP Error " + code + ": " + http.STATUS_CODES[code];
     let exception = {
